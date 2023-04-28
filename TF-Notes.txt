@@ -1,0 +1,136 @@
+terraform language basics - configuration syntax
+1. Blocks
+2. Argumenets
+3. Identifiers
+4. comments
+
+Terraform template
+<BLOCK TYPE> <BLOCK LABEL>
+   <BLOCK BODY>
+   <IDENTIFIER> = <EXPRESSION> #argument
+   
+Arguments:
+=============
+configuration perticular  resource
+Attributes:
+============
+Attributes are values exposed by perticular resource
+refference to resource attributes takes the format resource_type , resource_name.attribute_name
+
+meta-argument:
+=============
+always related to terraform specific
+	depends_on
+	count
+	provider
+	lifecycle
+
+Terraform top level BLOCK:
+=======================
+limited number of blocks
+Discuss about Terraform Top-Level blocks
+Terraform Settings Block
+Provider Block
+Resource Block
+Input Variables Block
+Output Values Block
+Local Values Block
+Data Sources Block
+Modules Block
+
+
+Terraform top level Blocks
+=========================
+3 most important
+1. Fundamental Blocks
+   a) terraform block - 
+        required versions, providers, backend
+   b) provider block-
+       Heart of tf,
+	   tf relies on provider to interact with Remote System, 
+	   Declare providers for tf to install providers & use them, 
+	   Provider configuration beilng on root module
+   c) resource block- 
+      each resource block describes one or more infrastructure objects
+	  Resource Syntax:
+	      How to declare resource?
+	  Resource behaviour:
+	      How terraform handles resource declaration     provisioners:
+	     we configure resource post-creation actions
+2. variable Blocks
+   a) Input Variables
+   b) output values
+   c) local values
+3. Calling/Referncing Blocks
+   a) Data source block
+   b) Modules block 
+
+. Fundamental Block Examples:
+================================
+terraform blocks & provider block we are going to define c1-version.tf
+resource block we are going to define c2-resource-name.tf
+for entire course terraform block & provider block sites in the c1-version.tf only
+
+terraform block:
+-------------------
+this block can be defined in 3 ways. All means same
+	1. Terraform Block
+	2. terraform setting block
+	3. terraform configuration block
+each terraform block can contain  a number of setting related to terraform behaviour
+
+VERY VERY IMPORTANT TO MEMORIZE :
+==============================
+  With in a terraform block, only constnat values can be used; arguments may not refer to named object 
+  such as resource, input variable, etc and may not use any of the Terraform language built-in functions
+  
+Diffrence between Block & argument?
+=====================================
+see the example below
+
+# Terrafrom Block
+terraform {
+    required_version = "~>0.14"
+    required_providers {
+        aws = {					#argument
+            source = "value"
+            version = "value"
+            
+        }
+    }
+}
+
+Block - is consists of {( flower backet)
+argumet -is consists of = ( equalto)
+
+Terraform provider:
+======================
+terraform providers is the heart of admin
+
+Need to install terraform cli in my local
+
+terraform init: 
+it will download the terraform respective providers, what ever we have defined the source & version value, this will download from the terraform registery in local desktop
+once its downloaded , when ever you are write the terraform validate, plan apply ots going to communicate with AWS API's in the aws cloud.
+it will going to provision the respective resource
+
+Each provider adds a set of resource types and/or data sources that Terraform can manage.
+
+Every resource type is implemented by a provider; without providers, Terraform can't manage any kind of infrastructure.
+
+Most providers configure a specific infrastructure platform (either cloud or self-hosted). 
+Providers can also offer local utilities for tasks like generating random numbers for unique resource names.
+
+terraform providers - 
+	1. Provider requirements
+	2. provider configuration
+	3. Dependency Lock File
+aws configure
+cat $HOME/.aws/credentials 
+[default] (region = us-east-1)
+aws_access_key_id = AKIA6G5VT6E4W2PWTKXO
+aws_secret_access_key = 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
+
+create resource block:
+=======================
+
